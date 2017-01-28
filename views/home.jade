@@ -1,11 +1,18 @@
+doctype html
+html
+	head
+		link(rel="stylesheet", href="style.css")
+body
+	p
+		MORO
+	div#container
+		each im in images
+			div#img 
+				img(src=im.path)
 
-p
-	MORO
-ul
-	each im in images
-		div 
-			img(src=im.path)
-
-		div
-			| Caption:  
-			= ' ' + im.caption
+				if im.caption
+					div#text 
+						= im.caption
+				else
+					div#text
+						= "No caption"
