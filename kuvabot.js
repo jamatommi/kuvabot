@@ -16,25 +16,21 @@ var token = ''; //insert bot token here
 var bot = new TelegramBot(token, {polling:true});
 
 //absolute path to the image storage
-var ABSOLUTE_JSON_PATH = "/home/jamabot/jamabot/json/";
+var ABSOLUTE_JSON_PATH = "images";	//Insert absolute path. might only work if this is the same as the json_path in app.js
 
 bot.on("message", function(msg){
-	var chatId = msg.chat.id;
-	var user = msg.from.id;
-	var date = msg.date;
-
-	//If received message is a photo, save the photo to ABSOLUTE_IMAGE_PATH
-	//Save image caption as json to ABSOLUTE_JSON_PATH
+	//If received message is a photo, save the photo and caption as json to ABSOLUTE_JSON_PATH
 	if (msg.photo){
 		console.log("Photo received: " + msg.caption);
-		bot.downloadFile(msg.photo[0].file_id, ABSOLUTE_IMAGE_PATH).then(function(path){
+		console.log(msg.photo[0].file_id)
+		bot.downloadFile(msg.photo[0].file_id, ABSOLUTE_JSON_PATH).then(function(path){
 			console.log("File saved to: " + path);	
 			var parts = path.split("/");		
 			var fname = parts[parts.length - 1];
 			var jsonObj = {"path" : fname, "caption" : msg.caption};
 
-			fs.writeFile(ABSOLUTE_JSON_PATH + fname + ".json", JSON.stringify(jsonObj), function(){
-				console.log("Json saved to: " + ABSOLUTE_JSON_PATH + fname + ".json");
+			fs.writeFile(ABSOLUTE_JSON_PATH + "/" + fname + ".json", JSON.stringify(jsonObj), function(){
+				console.log("Json saved to: " + ABSOLUTE_JSON_PATH + "/" + fname + ".json");
 			})
 		});
 	}
