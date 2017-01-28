@@ -2,14 +2,16 @@ var express = require('express');
 var fs = require("fs");
 var app = express();
 
-var ABSOLUTE_IMAGE_PATH = "/home/jamabot/images";
-var ABSOLUTE_JSON_PATH = "/home/jamabot/json/";
+var ABSOLUTE_IMAGE_PATH = "xxx/images";
 
 app.set('view engine', 'jade');
 
 app.use(express.static(ABSOLUTE_IMAGE_PATH));
 
 function readFolder(dir, onReady, onError) {
+	/* Parse .json files in dir and pass the information to onReady-callback.
+	Expected file format: {"path" : "asdsad/asdsa", "caption" : "text"} */
+
 	fs.readdir(dir, function(err, filenames) {
 		if (err){
 			onError(err);
@@ -41,10 +43,10 @@ function readFolder(dir, onReady, onError) {
 }
 
 
-app.get("/images/", function(req, res){
+app.get("/", function(req, res){
 		
 		var images = {};
-		readFolder(ABSOLUTE_JSON_PATH, function(data){
+		readFolder(ABSOLUTE_IMAGE_PATH, function(data){
 			console.log(data);
 			for (i = 0; i < data.images.length; i++){
 				data.images[i] = JSON.parse(data.images[i]);
