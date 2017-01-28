@@ -1,12 +1,15 @@
-**Kuvabot**
+## Kuvabot
 
-Telegram bot for tracking consumed drinks between groups.
+* A Telegram bot that collects all images it sees written in Node.js. 
 
-dependencies:
-npm install node-telegram-bot-api
+* A simple page for viewing images with express.js.
 
-Registered users are stored at ABSOLUTE_JSON_PATH/users.json
-registered {users: [{user : guild]}
+* Run bot: node kuvabot.js
 
-Results are stored at ABSOLUTE_JSON_PATH/guilds.json
-{guilds: [{guild:kaljat}]}
+* View images: node app.js (defaults to localhost:8000)
+
+* More information about Telegram bots and setting up your own bot: https://core.telegram.org/bots
+
+**Packages needed **
+* npm install node-telegram-bot-api \\
+* npm install express --save
