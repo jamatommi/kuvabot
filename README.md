@@ -10,6 +10,6 @@
 
 * More information about Telegram bots and setting up your own bot: https://core.telegram.org/bots
 
-**Packages needed **
-* npm install node-telegram-bot-api \\
+**Packages needed**
+* npm install node-telegram-bot-api
 * npm install express --save
