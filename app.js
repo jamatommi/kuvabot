@@ -2,11 +2,12 @@ var express = require('express');
 var fs = require("fs");
 var app = express();
 
-var ABSOLUTE_IMAGE_PATH = "xxx/images";
+var ABSOLUTE_IMAGE_PATH = "xxxxxx/images/";
 
 app.set('view engine', 'jade');
 
 app.use(express.static(ABSOLUTE_IMAGE_PATH));
+app.use(express.static('styles'));
 
 function readFolder(dir, onReady, onError) {
 	/* Parse .json files in dir and pass the information to onReady-callback.
