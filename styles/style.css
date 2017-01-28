@@ -1,0 +1,13 @@
+#container{
+	width:100%;
+}
+
+#img{
+	margin:10px;
+	float:left;
+}
+
+#text{
+	font-size:10px;
+}
+
