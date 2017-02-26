@@ -1,13 +1,26 @@
 var express = require('express');
 var fs = require("fs");
 var app = express();
+var config = require('./config.json');
 
-var ABSOLUTE_IMAGE_PATH = "xxxxxx/images/";
+var ABSOLUTE_IMAGE_PATH = "./images/";
 
 app.set('view engine', 'jade');
 
-app.use(express.static(ABSOLUTE_IMAGE_PATH));
+app.use(express.static("/home/tommijama/jamabot/images"));
+
+
 app.use(express.static('styles'));
+
+//headers
+app.use(function (req, res, next){
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
+var data = require("./data.js");
+
 
 function readFolder(dir, onReady, onError) {
 	/* Parse .json files in dir and pass the information to onReady-callback.
@@ -35,7 +48,7 @@ function readFolder(dir, onReady, onError) {
 				}
 				items++;
 				if (items == filenames.length){
-					console.log(data);				
+					console.log(data);
 					onReady(data);
 				}
 			})
@@ -45,15 +58,26 @@ function readFolder(dir, onReady, onError) {
 
 
 app.get("/", function(req, res){
-		
-		var images = {};
-		readFolder(ABSOLUTE_IMAGE_PATH, function(data){
-			console.log(data);
-			for (i = 0; i < data.images.length; i++){
-				data.images[i] = JSON.parse(data.images[i]);
-			}
-			res.render("home",  {"images":data.images});
-		}, function(err){throw err;});
+	data.allMessages(function(imagelist){
+		res.send("moi");
+		//res.render(imagelist);
+	});
+});
+
+app.get("/api/images/", function(req, res){
+	data.allMessages(function(err, results){
+		console.log(err);
+		if (!err)
+			res.json(results);
+	});
+});
+
+app.post("/api/images", function(req, res){
+	db.saveMessage(req.params.msg, req.params.fname, function(err){
+		if (err)
+			console.log(err);
+		console.log("done");
+	});
 });
 
 app.listen(8000, function(){});

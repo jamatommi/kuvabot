@@ -2,7 +2,7 @@
 
 * A Telegram bot that collects all images it sees written in Node.js. 
 
-* A simple page for viewing images with express.js.
+* A simple page for viewing images (express.js)
 
 * Run bot: node kuvabot.js
 
