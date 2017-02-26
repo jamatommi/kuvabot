@@ -1,0 +1,33 @@
+{
+  "name": "kuvabot",
+  "version": "0.0.1",
+  "description": "Telegram bot & image gallery",
+  "main": "app.js",
+  "scripts": {
+    "server": "node app.js",
+    "bot": "node kuvabot.js",
+    "front": "cd front && npm start",
+    "start": "npm run server | npm run bot | npm run front",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamatommi/kuvabot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "gallery"
+  ],
+  "author": "Tommi Nikula",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamatommi/kuvabot/issues"
+  },
+  "homepage": "https://github.com/jamatommi/kuvabot#readme",
+  "dependencies": {
+    "mongoose": "^4.8.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}
