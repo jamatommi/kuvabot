@@ -9,7 +9,8 @@ app.set('view engine', 'jade');
 
 app.use(express.static("/home/tommijama/jamabot/images"));
 
-
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
 app.use(express.static('styles'));
 
 //headers
@@ -19,7 +20,7 @@ app.use(function (req, res, next){
 	next();
 });
 
-var data = require("./data.js");
+var db = require("./data.js");
 
 
 function readFolder(dir, onReady, onError) {
@@ -56,16 +57,15 @@ function readFolder(dir, onReady, onError) {
 	});
 }
 
-
 app.get("/", function(req, res){
-	data.allMessages(function(imagelist){
+	db.allMessages(function(imagelist){
 		res.send("moi");
 		//res.render(imagelist);
 	});
 });
 
 app.get("/api/images/", function(req, res){
-	data.allMessages(function(err, results){
+	db.allMessages(function(err, results){
 		console.log(err);
 		if (!err)
 			res.json(results);
@@ -73,7 +73,8 @@ app.get("/api/images/", function(req, res){
 });
 
 app.post("/api/images", function(req, res){
-	db.saveMessage(req.params.msg, req.params.fname, function(err){
+	console.log(req.body);
+	db.saveMessage(req.body.msg, req.body.fname, function(err){
 		if (err)
 			console.log(err);
 		console.log("done");

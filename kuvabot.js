@@ -9,6 +9,17 @@ var config = require("./config.json");
 var token = config.bot_token; //insert bot token here
 
 var bot = new TelegramBot(token, {polling:true});
+var request = require('request');
+
+/*var options = {
+		url: config.server + "/api/images",
+		method: 'POST',
+		form: "{'fname':'asd'}"
+};
+console.log(options);*/
+
+// Start the request
+request.post(config.server + "/api/images").form({key: "value"});
 
 
 //absolute path to the image storage
@@ -22,23 +33,25 @@ bot.on("message", function(msg){
 			console.log("File saved to: " + path);
 			var parts = path.split("/");
 			var fname = parts[parts.length - 1];
-
-			var request = require('request');
 			// Configure the request
 			var options = {
-			    url: config.server + "/api/images",
-			    method: 'POST',
-			    headers: {'Content-Type':     'application/json'},
-			    form: {"fname": fname, "msg": msg}
-			}
-
-			// Start the request
-			request(options, function (error, response, body) {
+					url: config.server + "/api/images",
+					method: 'POST',
+					json: {
+						'fname': fname,
+						'msg': msg
+					}
+			};
+			request.post(options, function (error, response, body) {
+					console.log(error);
 			    if (!error && response.statusCode == 200) {
 			        // Print out the response body
 			        console.log(body)
-			    }
-			})
+			    }else{
+						console.log(error);
+					}
+			});
+
 		});
 	}
 });

@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/jamatommi/kuvabot#readme",
   "dependencies": {
+    "body-parser": "^1.16.1",
     "mongoose": "^4.8.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
